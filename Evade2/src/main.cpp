@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
     printf("Usage: %s <path.to.ini.file>\n", argv[0]);
     return 1;
   }
-#endif  app_main(argv[1]);
+#endif
+  app_main(argv[1]);
   return 0;
 }
