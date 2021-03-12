@@ -13,7 +13,8 @@ SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/creative-engine/cmake.files)
 #ADD_COMPILE_DEFINITIONS(__DINGUX__=true)
 ADD_COMPILE_DEFINITIONS(__MODUS_TARGET_SDL2_AUDIO__=true)
 ADD_COMPILE_DEFINITIONS(__MODUS_TARGET_DESKTOP_CONTROLS__=true)
-ADD_COMPILE_DEFINITIONS(__MODUS_TARGET_DESKTOP_DISPLAY__=true)
+#ADD_COMPILE_DEFINITIONS(__MODUS_TARGET_DESKTOP_DISPLAY__=true)
+ADD_COMPILE_DEFINITIONS(__MODUS_TARGET_NETWORK_DISPLAY__=true)
 
 # Include Creative Engine
 # Exports:
@@ -47,12 +48,19 @@ INCLUDE_DIRECTORIES(
         ${CREATIVE_ENGINE_INCLUDE_DIRS}
 )
 
+IF(EXISTS ${RESOURCES_DIR})
+    SET(RESOURCES_BIN_FILE "Resources.bin")
+    compile_rcomp_and_resources()  # Only used when we are in development mode (AND you have access to licensed resource files)
+else()
+    SET(RESOURCES_BIN_FILE "${CMAKE_SOURCE_DIR}/src/Resources.bin")
+ENDIF()
+
 # gather Evade 2 sources
 FILE(GLOB_RECURSE EVADE2_SRC RELATIVE ${CMAKE_SOURCE_DIR} "src/*.cpp")
 
 ADD_EXECUTABLE(
         ${PROJECT_NAME}
-        Resources.bin
+        ${RESOURCES_BIN_FILE}
         ${CREATIVE_ENGINE_SOURCE_FILES}
         ${EVADE2_SRC}
         src/GameState/GGameState.cpp src/GameState/GGameState.h src/common/GStarfield.cpp src/common/GStarfield.h src/GameState/GPlayerBulletProcess.cpp src/GameState/GPlayerBulletProcess.h src/main.cpp src/GameState/GEnemyProcess.cpp src/GameState/GEnemyProcess.h src/GameState/GEnemyBulletProcess.cpp src/GameState/GEnemyBulletProcess.h src/AttractState/GAttractState.cpp src/AttractState/GAttractState.h src/AttractState/GAttractProcess.cpp src/AttractState/GAttractProcess.h src/MainMenuState/GMainMenuState.cpp src/MainMenuState/GMainMenuState.h src/MainMenuState/GMainMenuProcess.cpp src/MainMenuState/GMainMenuProcess.h src/GameState/GNextWaveProcess.cpp src/GameState/GNextWaveProcess.h src/GameState/GBossProcess.cpp src/GameState/GBossProcess.h src/GameState/GGameOverProcess.cpp src/GameState/GGameOverProcess.h src/GameState/GAsteroidProcess.cpp src/GameState/GAsteroidProcess.h)
