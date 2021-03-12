@@ -18,6 +18,7 @@ extern "C" void app_main(char *fileName) {
 #ifdef __MODUS_TARGET_NETWORK_DISPLAY__
   NetworkDisplay *display = (NetworkDisplay*)&gDisplay;
 //    const char *fileName = "/home/jgarcia/modite-rgb.ini";
+  display->ConfigureFromIniFile(fileName);
 #endif
   gGame->Run();
   delete gGame;
@@ -26,6 +27,6 @@ extern "C" void app_main(char *fileName) {
 
 
 int main(int argc, char *argv[]) {
-  app_main(argv[0]);
+  app_main(argv[1]);
   return 0;
 }
