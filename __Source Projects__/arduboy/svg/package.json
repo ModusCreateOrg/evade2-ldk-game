@@ -3,7 +3,7 @@
     "colors": "^1.1.2",
     "json-query": "^2.2.2",
     "load-svg": "^1.0.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.6",
     "svg-line-segments": "^1.0.0",
     "svg-linearize": "^1.1.0",
     "svg-path-parser": "^1.1.0",
